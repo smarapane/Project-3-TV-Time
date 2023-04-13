@@ -10,15 +10,11 @@ class BarChart {
     this.yAxisLabel = _config.yAxisLabel;
     this.title = _config.title;
     this.xAxisLambda = _config.xAxisLambda;
-    this.fillLambda = _config.fillLambda;
+    this.fillLambda = _config.fillLambda || [];
     this.logScale = _config.logScale;
     this.orderedKeys = _config.orderedKeys || [];
     this.tiltTicks = _config.tiltTicks;
     this.data = _data
-    this.logScale = _config.logScale;
-    this.orderedKeys = _config.orderedKeys || [];
-    this.tiltTicks = _config.tiltTicks;
-    this.data = _data;
     this.no_data_key = _config.no_data_key || "No Data";
 
     this.initVis();
@@ -120,7 +116,7 @@ class BarChart {
     let vis = this;
 
     const aggregatedDataMap = d3.rollups(
-      filtered_data,
+      vis.data,
       (v) => v.length,
       vis.xAxisLambda
     );
