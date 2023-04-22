@@ -3,6 +3,7 @@ d3.csv("data/transcript_data.csv")
 
   data = _data;
 
+  
   bar = new BarChart(
     {
       parentElement: "#barchart",
@@ -10,7 +11,6 @@ d3.csv("data/transcript_data.csv")
       yAxisLabel: "y label",
       title: "title",
       xAxisLambda: (d) => {
-        console.log(d['character']);
         return d['character'];
       },
       logScale: false,
@@ -18,7 +18,58 @@ d3.csv("data/transcript_data.csv")
     },
     data.slice(0, 5)
   );
-  
   bar.updateVis();
-
+  
+  var words = prepCloudData("Fry", data);
+  cloud = new WordCloud(
+    { parentElement: '#wordcloud', },
+    words.slice(0, 50)
+  ); 
+  
   }).catch(error => console.error(error));
+
+
+function prepCloudData(character, data) {
+  var wordDict = {};
+  var wordList = [];
+
+  data.forEach(d => {
+    if (d['character'] == character) {
+      var words = d['line'].split(/[\s,.\?\!]+/);
+      words.forEach(word => {
+        if (!(stopWordsSet.has(word.toLowerCase()))) {
+            if (word in wordDict) {
+              wordDict[word] += 1;
+            }
+            
+            else {
+              wordDict[word] = 1;
+            }
+        }
+      })
+    }
+  })
+
+  for (const [key, value] of Object.entries(wordDict)) {
+    wordList.push({
+        text: key,
+        count: value
+    });
+  }
+
+  return wordList.sort((a, b) => b.count - a.count);
+}
+
+// just get the data points associated with a given character
+function prepBarData(character, data) {
+  var characterList = [];
+
+  
+  data.forEach(d => {
+    if (d['character'] == character) {
+      characterList.push(d);
+    }
+  })
+
+  return characterList;
+}
