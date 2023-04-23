@@ -125,7 +125,7 @@ class BarChart {
       
     // });
 
-    const groupByCharacter = d3.group(vis.data, d => d.character);
+    const groupByCharacter = d3.group(barData, d => d.character);
 
     const seasonCounts = Array.from(groupByCharacter, ([character, group]) => {
       const countBySeason = d3.rollup(
@@ -137,25 +137,20 @@ class BarChart {
       return { character, countBySeason };
     });
 
-console.log(seasonCounts);
-
 const seasonCountsArray = seasonCounts.map(d => {
   const character = d.character;
   const countsArray = Array.from(d.countBySeason.values());
   return { character, ...countsArray };
 });
 
-console.log(seasonCountsArray);
-
 const stack = d3.stack().keys(['1','2','3','4','5','6','7','8','9']);
 
 vis.stackedData = stack(seasonCountsArray);
-console.log(vis.stackedData);
 
 //const stackData = d3.stack().keys([])
 
     const aggregatedDataMap = d3.rollups(
-      vis.data,
+      barData,
       (v) => v.length,
       vis.xAxisLambda
     );
@@ -201,6 +196,10 @@ console.log(vis.stackedData);
     //   .data(vis.aggregatedData, vis.xValue)
     //   .join("rect");
 
+    if (vis.bars) {
+      vis.bars.remove()
+    }
+
     vis.bars = vis.chart
       .selectAll(".bar")
       .data(vis.stackedData)
@@ -212,8 +211,6 @@ console.log(vis.stackedData);
            .attr('x', d => vis.xScale(d.data.character))
 		       .attr('y', d => vis.yScale(d[1]))
 		       .attr('height', d=> {
-            console.log("HERE:")
-            console.log(vis.yScale(d[0]), vis.yScale(d[1]))
             //any other code you want can go here
             return (vis.yScale(d[0]) - vis.yScale(d[1]))
            }) //.attr('height', d => vis.yScale(d[0]) - vis.yScale(d[1])) //it computed the start and end, height is the difference
@@ -248,15 +245,17 @@ console.log(vis.stackedData);
       //   filterData(vis.xAxisLambda, vis.xValue(d));
       // });
 
-    // vis.bars
-    //   .transition()
-    //   .duration(500)
-    //   .attr("class", "bar")
-    //   .attr("x", (d) => vis.xScale(vis.xValue(d)))
-    //   .attr("width", vis.xScale.bandwidth())
-    //   .attr("height", (d) => vis.height - vis.yScale(vis.yValue(d)))
-    //   .attr("y", (d) => vis.yScale(vis.yValue(d)))
-    //   .attr("fill", vis.fillLambda ?? "#4682B4");
+    /*
+     vis.bars
+       .transition()
+       .duration(500)
+       .attr("class", "bar")
+       .attr("x", (d) => vis.xScale(vis.xValue(d)))
+       .attr("width", vis.xScale.bandwidth())
+       .attr("height", (d) => vis.height - vis.yScale(vis.yValue(d)))
+       .attr("y", (d) => vis.yScale(vis.yValue(d)))
+       .attr("fill", vis.fillLambda ?? "#4682B4");
+       */
 
     vis.xAxisGroup.call(vis.xAxis);
     vis.yAxisGroup.call(vis.yAxis);

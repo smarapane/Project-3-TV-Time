@@ -1,13 +1,13 @@
+active_characters = []
+let wordcloud, phrasecloud, bar, barData;
+
 d3.csv("data/transcript_data.csv")
 .then(_data => {
 
   data = _data;
 
-  var barData = [];
-  var characterList = ['Fry', 'Leela', 'Bender', 'Kiff'];
-  var barData = getCharacterData(characterList, data, barData);
-  console.log("BarData");
-  console.log(barData);
+  barData = [];
+  //var characterList = ['Fry', 'Leela', 'Bender', 'Kiff'];
 
   //console.log(data.slice(0,5));
   
@@ -15,8 +15,8 @@ d3.csv("data/transcript_data.csv")
     {
       parentElement: "#barchart",
       xAxisLabel: "Character",
-      yAxisLabel: "Lines Spoken",
-      title: "Lines per Character per Season",
+      yAxisLabel: "Number of Lines",
+      title: "Lines per Character",
       xAxisLambda: (d) => {
         return d['character'];
       },
@@ -25,21 +25,28 @@ d3.csv("data/transcript_data.csv")
     },
     barData
   );
-  bar.updateVis();
+  updateCharacters();
+
   
-  var words = prepCloudData("Fry", data);
-  cloud = new WordCloud(
+  var words = prepCloudDataWords("Fry", data);
+  wordcloud = new WordCloud(
     { parentElement: '#wordcloud', },
-    words.slice(0, 50)
+    words.slice(0, 40),
+    "Word Cloud"
   ); 
 
-
-
   
+  var phrases = prepCloudDataPhrases("Fry", data);
+  phrasecloud = new WordCloud(
+    { parentElement: '#phrasecloud', },
+    phrases.slice(0, 40),
+    "Phrase Cloud"
+  ); 
+
   }).catch(error => console.error(error));
 
 
-function prepCloudData(character, data) {
+function prepCloudDataWords(character, data) {
   var wordDict = {};
   var wordList = [];
 
@@ -70,31 +77,11 @@ function prepCloudData(character, data) {
   return wordList.sort((a, b) => b.count - a.count);
 }
 
-// just get the data points associated with a given character
-
-
-// function getCharacterData(characterList, data, barData) {
-//   for (let i = 0; i < characterList.length; i++) {
-//     let charData = prepBarData(characterList[i], data);
-//     barData.push(charData);
-//   }
-//   return barData;
-// }
-
-// function prepBarData(character, data) {
-//   var characterLines = [];
-
-  
-//   data.forEach(d => {
-//     if (d['character'] == character) {
-//       characterLines.push(d);
-//     }
-//   })
-
-//   return characterLines;
-// }
-
 function getCharacterData(characterList, data, barData) {
+  barData = []
+  if (characterList.length == 0) {
+    characterList = ["Fry", "Bender", "Leela", "Farnsworth", "Zoidberg", "Amy", "Hermes", "Zapp", "Kif", "Mom"]
+  }
   for (let i = 0; i < characterList.length; i++) {
     data.forEach(d => {
       if (d['character'] == characterList[i]) {
@@ -103,4 +90,77 @@ function getCharacterData(characterList, data, barData) {
     })
   }
   return barData;
+}
+
+function addCharacter() {
+  var u = document.getElementById("characters-stack").value;
+  if (active_characters.indexOf(u) < 0) {
+    active_characters.push(u);
+    updateCharacters();
+  }
+}
+
+function removeCharacter() {
+  var u = document.getElementById("characters-stack").value;
+  if (active_characters.indexOf(u) > -1) {
+    active_characters.pop(u);
+    updateCharacters();
+  }
+}
+
+function clearCharacters() {
+  active_characters = [];
+  updateCharacters();
+}
+
+function updateCharacters() {
+  document.getElementById("charlist").innerHTML = "";
+  active_characters.forEach((c, i) =>
+    document.getElementById("charlist").innerHTML += ("<li>" + c + "</li>"));
+  barData = getCharacterData(active_characters, data, barData);
+  bar.updateVis();
+}
+
+function updateWordClouds() {
+  var character = document.getElementById("characters-cloud").value;
+
+  var words = prepCloudDataWords(character, data);
+  wordcloud.updateVis(words.slice(0, 40));
+
+  var phrases = prepCloudDataPhrases(character, data);
+  phrasecloud.updateVis(phrases.slice(0, 40));
+
+  d3.select('#cloud-active-character').text('Active Character: ' + character);
+
+}
+
+function prepCloudDataPhrases(character, data) {
+  var phraseDict = {};
+  var phraseList = [];
+
+  data.forEach(d => {
+    if (d['character'] == character) {
+      var phrases = d['line'].split(/[!]+/);
+      phrases.forEach(phrase => {
+          if (phrase.length > 0) {
+            if (phrase.toLowerCase().trim() in phraseDict) {
+              phraseDict[phrase.toLowerCase().trim()] += 1;
+            }
+            else {
+              phraseDict[phrase.toLowerCase().trim()] = 1;
+            }
+          }
+        }
+      )
+    }
+  })
+
+  for (const [key, value] of Object.entries(phraseDict)) {
+    phraseList.push({
+        text: key,
+        count: value
+    });
+  }
+
+  return phraseList.sort((a, b) => b.count - a.count);
 }

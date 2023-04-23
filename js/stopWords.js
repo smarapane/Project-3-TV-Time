@@ -1,4 +1,7 @@
 var stopWordsSet = new Set([
+    "well",
+    "even",
+    "those",
     "",
     "a",
     "able",
