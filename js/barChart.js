@@ -147,7 +147,7 @@ const seasonCountsArray = seasonCounts.map(d => {
 
 console.log(seasonCountsArray);
 
-const stack = d3.stack().keys(['1','2','3','4','5','6','7','8','9','10']);
+const stack = d3.stack().keys(['1','2','3','4','5','6','7','8','9']);
 
 vis.stackedData = stack(seasonCountsArray);
 console.log(vis.stackedData);
@@ -209,14 +209,20 @@ console.log(vis.stackedData);
       .selectAll(".bar")
       .data(vis.stackedData)
       .join('g')
-		   .attr('class', d => `category cat-${d.key}`)
+		   .attr('class', d => `category season-${d.key}`)
       .selectAll('rect')
         .data(d => d)
         .join("rect")
            .attr('x', d => vis.xScale(d.data.character))
 		       .attr('y', d => vis.yScale(d[1]))
-		       .attr('height', d => vis.yScale(d[0]) - vis.yScale(d[1])) //it computed the start and end, height is the difference
+		       .attr('height', d=> {
+            console.log("HERE:")
+            console.log(vis.yScale(d[0]), vis.yScale(d[1]))
+            //any other code you want can go here
+            return (vis.yScale(d[0]) - vis.yScale(d[1]))
+           }) //.attr('height', d => vis.yScale(d[0]) - vis.yScale(d[1])) //it computed the start and end, height is the difference
 		       .attr('width', vis.xScale.bandwidth());
+           
 
     vis.bars
       .on("mouseover", (event, d) => {
@@ -236,15 +242,15 @@ console.log(vis.stackedData);
         filterData(vis.xAxisLambda, vis.xValue(d));
       });
 
-    vis.bars
-      .transition()
-      .duration(500)
-      .attr("class", "bar")
-      .attr("x", (d) => vis.xScale(vis.xValue(d)))
-      .attr("width", vis.xScale.bandwidth())
-      .attr("height", (d) => vis.height - vis.yScale(vis.yValue(d)))
-      .attr("y", (d) => vis.yScale(vis.yValue(d)))
-      .attr("fill", vis.fillLambda ?? "#4682B4");
+    // vis.bars
+    //   .transition()
+    //   .duration(500)
+    //   .attr("class", "bar")
+    //   .attr("x", (d) => vis.xScale(vis.xValue(d)))
+    //   .attr("width", vis.xScale.bandwidth())
+    //   .attr("height", (d) => vis.height - vis.yScale(vis.yValue(d)))
+    //   .attr("y", (d) => vis.yScale(vis.yValue(d)))
+    //   .attr("fill", vis.fillLambda ?? "#4682B4");
 
     vis.xAxisGroup.call(vis.xAxis);
     vis.yAxisGroup.call(vis.yAxis);
