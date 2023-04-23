@@ -14,9 +14,9 @@ d3.csv("data/transcript_data.csv")
   bar = new BarChart(
     {
       parentElement: "#barchart",
-      xAxisLabel: "x label",
-      yAxisLabel: "y label",
-      title: "title",
+      xAxisLabel: "Character",
+      yAxisLabel: "Lines Spoken",
+      title: "Lines per Character per Season",
       xAxisLambda: (d) => {
         return d['character'];
       },

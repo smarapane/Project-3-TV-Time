@@ -3,7 +3,7 @@ class BarChart {
     this.config = {
       parentElement: _config.parentElement,
       containerWidth: _config.containerWidth || 300,
-      containerHeight: _config.containerHeight || 350,
+      containerHeight: _config.containerHeight || 600,
       margin: _config.margin || { top: 60, bottom: 50, right: 20, left: 70 },
     };
     this.xAxisLabel = _config.xAxisLabel;
@@ -163,10 +163,6 @@ console.log(vis.stackedData);
       key,
       count,
     }));
-    console.log('DataMap:');
-    console.log(aggregatedDataMap);
-    console.log('AggregatedData');
-    console.log(aggregatedDataMap);
 
     if (vis.orderedKeys.length == 0) {
       vis.aggregatedData = vis.aggregatedData.sort((a, b) => {
@@ -225,22 +221,32 @@ console.log(vis.stackedData);
            
 
     vis.bars
-      .on("mouseover", (event, d) => {
-        d3.select("#barchart-tooltip").style("display", "block");
-      })
-      .on("mousemove", (event, d) => {
-        d3.select("#barchart-tooltip")
-          .style("left", event.pageX + 15 + "px")
-          .style("top", event.pageY + 15 + "px")
-          .html(`Value: ${vis.yValue(d)}`);
-      })
-      .on("mouseleave", () => {
-        d3.select("#barchart-tooltip").style("display", "none");
-      })
-      .on("click", function (event, d) {
-        d3.select(this).classed("active", true);
-        filterData(vis.xAxisLambda, vis.xValue(d));
-      });
+    .on('mouseover', (event,d) => {
+      d3.select('#tooltip')
+        .style('opacity', 1)
+        .html(`<div class="tooltip-label">Test</div>`);
+    })
+    .on('mousemove', (event) => {
+      d3.select('#tooltip')
+        .style('left', (event.pageX + vis.config.tooltipPadding) + 'px')   
+        .style('top', (event.pageY + vis.config.tooltipPadding) + 'px')
+    })
+    .on('mouseleave', () => {
+      d3.select('#tooltip').style('opacity', 0);
+    });
+      // .on("mousemove", (event, d) => {
+      //   d3.select("#barchart-tooltip")
+      //     .style("left", event.pageX + 15 + "px")
+      //     .style("top", event.pageY + 15 + "px")
+      //     .html(`Value: ${vis.height}`);
+      // })
+      // .on("mouseleave", () => {
+      //   d3.select("#barchart-tooltip").style("display", "none");
+      // })
+      // .on("click", function (event, d) {
+      //   d3.select(this).classed("active", true);
+      //   filterData(vis.xAxisLambda, vis.xValue(d));
+      // });
 
     // vis.bars
     //   .transition()
