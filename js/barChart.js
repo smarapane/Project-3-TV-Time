@@ -225,8 +225,8 @@ vis.stackedData = stack(seasonCountsArray);
     })
     .on('mousemove', (event) => {
       d3.select('#tooltip')
-        .style('left', (event.pageX + vis.config.tooltipPadding) + 'px')   
-        .style('top', (event.pageY + vis.config.tooltipPadding) + 'px')
+        .style('left', (event.pageX + 15) + 'px')
+        .style('top', (event.pageY + 15) + 'px')
     })
     .on('mouseleave', () => {
       d3.select('#tooltip').style('opacity', 0);
