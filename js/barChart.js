@@ -125,7 +125,7 @@ class BarChart {
       
     // });
 
-    const groupByCharacter = d3.group(vis.data, d => d.character);
+    const groupByCharacter = d3.group(barData, d => d.character);
 
     const seasonCounts = Array.from(groupByCharacter, ([character, group]) => {
       const countBySeason = d3.rollup(
@@ -150,7 +150,7 @@ vis.stackedData = stack(seasonCountsArray);
 //const stackData = d3.stack().keys([])
 
     const aggregatedDataMap = d3.rollups(
-      vis.data,
+      barData,
       (v) => v.length,
       vis.xAxisLambda
     );
@@ -196,6 +196,10 @@ vis.stackedData = stack(seasonCountsArray);
     //   .data(vis.aggregatedData, vis.xValue)
     //   .join("rect");
 
+    if (vis.bars) {
+      vis.bars.remove()
+    }
+
     vis.bars = vis.chart
       .selectAll(".bar")
       .data(vis.stackedData)
@@ -231,15 +235,17 @@ vis.stackedData = stack(seasonCountsArray);
         filterData(vis.xAxisLambda, vis.xValue(d));
       });
 
-    // vis.bars
-    //   .transition()
-    //   .duration(500)
-    //   .attr("class", "bar")
-    //   .attr("x", (d) => vis.xScale(vis.xValue(d)))
-    //   .attr("width", vis.xScale.bandwidth())
-    //   .attr("height", (d) => vis.height - vis.yScale(vis.yValue(d)))
-    //   .attr("y", (d) => vis.yScale(vis.yValue(d)))
-    //   .attr("fill", vis.fillLambda ?? "#4682B4");
+    /*
+     vis.bars
+       .transition()
+       .duration(500)
+       .attr("class", "bar")
+       .attr("x", (d) => vis.xScale(vis.xValue(d)))
+       .attr("width", vis.xScale.bandwidth())
+       .attr("height", (d) => vis.height - vis.yScale(vis.yValue(d)))
+       .attr("y", (d) => vis.yScale(vis.yValue(d)))
+       .attr("fill", vis.fillLambda ?? "#4682B4");
+       */
 
     vis.xAxisGroup.call(vis.xAxis);
     vis.yAxisGroup.call(vis.yAxis);

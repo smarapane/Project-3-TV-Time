@@ -1,14 +1,13 @@
 active_characters = []
-let wordcloud, phrasecloud;
+let wordcloud, phrasecloud, bar, barData;
 
 d3.csv("data/transcript_data.csv")
 .then(_data => {
 
   data = _data;
 
-  var barData = [];
-  var characterList = ['Fry', 'Leela', 'Bender', 'Kiff'];
-  var barData = getCharacterData(characterList, data, barData);
+  barData = [];
+  //var characterList = ['Fry', 'Leela', 'Bender', 'Kiff'];
 
   //console.log(data.slice(0,5));
   
@@ -26,7 +25,7 @@ d3.csv("data/transcript_data.csv")
     },
     barData
   );
-  bar.updateVis();
+  updateCharacters();
 
   
   var words = prepCloudDataWords("Fry", data);
@@ -79,6 +78,10 @@ function prepCloudDataWords(character, data) {
 }
 
 function getCharacterData(characterList, data, barData) {
+  barData = []
+  if (characterList.length == 0) {
+    characterList = ["Fry", "Bender", "Leela", "Farnsworth", "Zoidberg", "Amy", "Hermes", "Zapp", "Kif", "Mom"]
+  }
   for (let i = 0; i < characterList.length; i++) {
     data.forEach(d => {
       if (d['character'] == characterList[i]) {
@@ -93,16 +96,16 @@ function addCharacter() {
   var u = document.getElementById("characters-stack").value;
   if (active_characters.indexOf(u) < 0) {
     active_characters.push(u);
+    updateCharacters();
   }
-  updateCharacters();
 }
 
 function removeCharacter() {
   var u = document.getElementById("characters-stack").value;
   if (active_characters.indexOf(u) > -1) {
     active_characters.pop(u);
+    updateCharacters();
   }
-  updateCharacters();
 }
 
 function clearCharacters() {
@@ -114,6 +117,8 @@ function updateCharacters() {
   document.getElementById("charlist").innerHTML = "";
   active_characters.forEach((c, i) =>
     document.getElementById("charlist").innerHTML += ("<li>" + c + "</li>"));
+  barData = getCharacterData(active_characters, data, barData);
+  bar.updateVis();
 }
 
 function updateWordClouds() {
