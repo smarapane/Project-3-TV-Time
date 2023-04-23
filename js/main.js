@@ -6,7 +6,7 @@ d3.csv("data/transcript_data.csv")
   data = _data;
 
   var barData = [];
-  var characterList = ['Fry', 'Leela', 'Hermes', 'Zoidberg', 'Scruffy', 'Zapp' ,'Zapp Brannigan'];
+  var characterList = ['Fry', 'Leela', 'Bender', 'Kiff'];
   var barData = getCharacterData(characterList, data, barData);
   console.log("BarData");
   console.log(barData);
