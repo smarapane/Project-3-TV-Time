@@ -5,6 +5,13 @@ d3.csv("data/transcript_data.csv")
 
   data = _data;
 
+  var barData = [];
+  var characterList = ['Fry', 'Leela', 'Hermes', 'Zoidberg', 'Scruffy', 'Zapp' ,'Zapp Brannigan'];
+  var barData = getCharacterData(characterList, data, barData);
+  console.log("BarData");
+  console.log(barData);
+
+  //console.log(data.slice(0,5));
   
   bar = new BarChart(
     {
@@ -18,7 +25,7 @@ d3.csv("data/transcript_data.csv")
       logScale: false,
       containerWidth: 900,
     },
-    data.slice(0, 5)
+    barData
   );
   bar.updateVis();
   
@@ -27,6 +34,9 @@ d3.csv("data/transcript_data.csv")
     { parentElement: '#wordcloud', },
     words.slice(0, 50)
   ); 
+
+
+
   
   }).catch(error => console.error(error));
 
@@ -63,17 +73,38 @@ function prepCloudData(character, data) {
 }
 
 // just get the data points associated with a given character
-function prepBarData(character, data) {
-  var characterList = [];
+
+
+// function getCharacterData(characterList, data, barData) {
+//   for (let i = 0; i < characterList.length; i++) {
+//     let charData = prepBarData(characterList[i], data);
+//     barData.push(charData);
+//   }
+//   return barData;
+// }
+
+// function prepBarData(character, data) {
+//   var characterLines = [];
 
   
-  data.forEach(d => {
-    if (d['character'] == character) {
-      characterList.push(d);
-    }
-  })
+//   data.forEach(d => {
+//     if (d['character'] == character) {
+//       characterLines.push(d);
+//     }
+//   })
 
-  return characterList;
+//   return characterLines;
+// }
+
+function getCharacterData(characterList, data, barData) {
+  for (let i = 0; i < characterList.length; i++) {
+    data.forEach(d => {
+      if (d['character'] == characterList[i]) {
+        barData.push(d);
+      }
+    })
+  }
+  return barData;
 }
 
 function addCharacter() {

@@ -115,6 +115,45 @@ class BarChart {
   updateVis() {
     let vis = this;
 
+    // const seasonCounts = Array.from(vis.data, ([character, group]) => {
+    //   countBySeason = d3.rollup(
+    //     group,
+    //     v => v.length,
+    //     d => d.Season
+    //   );
+    //     return { character, countBySeason};
+      
+    // });
+
+    const groupByCharacter = d3.group(vis.data, d => d.character);
+
+    const seasonCounts = Array.from(groupByCharacter, ([character, group]) => {
+      const countBySeason = d3.rollup(
+        group,
+        (v) => v.length,
+        (d) => d.season
+        //d => d.season
+      );
+      return { character, countBySeason };
+    });
+
+console.log(seasonCounts);
+
+const seasonCountsArray = seasonCounts.map(d => {
+  const character = d.character;
+  const countsArray = Array.from(d.countBySeason.values());
+  return { character, ...countsArray };
+});
+
+console.log(seasonCountsArray);
+
+const stack = d3.stack().keys(['1','2','3','4','5','6','7','8','9','10']);
+
+vis.stackedData = stack(seasonCountsArray);
+console.log(vis.stackedData);
+
+//const stackData = d3.stack().keys([])
+
     const aggregatedDataMap = d3.rollups(
       vis.data,
       (v) => v.length,
@@ -124,6 +163,10 @@ class BarChart {
       key,
       count,
     }));
+    console.log('DataMap:');
+    console.log(aggregatedDataMap);
+    console.log('AggregatedData');
+    console.log(aggregatedDataMap);
 
     if (vis.orderedKeys.length == 0) {
       vis.aggregatedData = vis.aggregatedData.sort((a, b) => {
@@ -157,10 +200,23 @@ class BarChart {
   renderVis() {
     let vis = this;
 
+    // vis.bars = vis.chart
+    //   .selectAll(".bar")
+    //   .data(vis.aggregatedData, vis.xValue)
+    //   .join("rect");
+
     vis.bars = vis.chart
       .selectAll(".bar")
-      .data(vis.aggregatedData, vis.xValue)
-      .join("rect");
+      .data(vis.stackedData)
+      .join('g')
+		   .attr('class', d => `category cat-${d.key}`)
+      .selectAll('rect')
+        .data(d => d)
+        .join("rect")
+           .attr('x', d => vis.xScale(d.data.character))
+		       .attr('y', d => vis.yScale(d[1]))
+		       .attr('height', d => vis.yScale(d[0]) - vis.yScale(d[1])) //it computed the start and end, height is the difference
+		       .attr('width', vis.xScale.bandwidth());
 
     vis.bars
       .on("mouseover", (event, d) => {
