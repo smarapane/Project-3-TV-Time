@@ -11,6 +11,30 @@
     <svg id="barchart"></svg> 
     <svg id="wordcloud"></svg> 
     <svg id="linechart"></svg>
+
+    <br>
+    <div id="character-selector">
+        <label for="characters">Character:</label>
+        <select name="characters" id="characters">
+            <option value="Fry">Fry</option>
+            <option value="Bender">Bender</option>
+            <option value="Leela">Leela</option>
+            <option value="Farnsworth">Farnsworth</option>
+            <option value="Zoidberg">Zoidberg</option>
+            <option value="Amy">Amy</option>
+            <option value="Hermes">Hermes</option>
+            <option value="Zapp">Zapp</option>
+            <option value="Kif">Kif</option>
+            <option value="Mom">Mom</option>
+        </select>
+        <button onclick="addCharacter()">Add</button>
+        <button onclick="removeCharacter()">Remove</button>
+        <button onclick="clearCharacters()">Clear</button>
+        <br>
+        <p>Active Characters:</p>
+        <ul id="charlist"></ul>
+    </div>
+
     <script src="js/d3.v6.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-cloud/1.2.5/d3.layout.cloud.min.js"></script>
     <script src="js/main.js"></script>

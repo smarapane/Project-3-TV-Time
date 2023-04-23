@@ -1,3 +1,5 @@
+active_characters = []
+
 d3.csv("data/transcript_data.csv")
 .then(_data => {
 
@@ -72,4 +74,31 @@ function prepBarData(character, data) {
   })
 
   return characterList;
+}
+
+function addCharacter() {
+  var u = document.getElementById("characters").value;
+  if (active_characters.indexOf(u) < 0) {
+    active_characters.push(u);
+  }
+  updateCharacters();
+}
+
+function removeCharacter() {
+  var u = document.getElementById("characters").value;
+  if (active_characters.indexOf(u) > -1) {
+    active_characters.pop(u);
+  }
+  updateCharacters();
+}
+
+function clearCharacters() {
+  active_characters = [];
+  updateCharacters();
+}
+
+function updateCharacters() {
+  document.getElementById("charlist").innerHTML = "";
+  active_characters.forEach((c, i) =>
+    document.getElementById("charlist").innerHTML += ("<li>" + c + "</li>"));
 }
