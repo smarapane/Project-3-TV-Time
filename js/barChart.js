@@ -137,20 +137,15 @@ class BarChart {
       return { character, countBySeason };
     });
 
-console.log(seasonCounts);
-
 const seasonCountsArray = seasonCounts.map(d => {
   const character = d.character;
   const countsArray = Array.from(d.countBySeason.values());
   return { character, ...countsArray };
 });
 
-console.log(seasonCountsArray);
-
 const stack = d3.stack().keys(['1','2','3','4','5','6','7','8','9']);
 
 vis.stackedData = stack(seasonCountsArray);
-console.log(vis.stackedData);
 
 //const stackData = d3.stack().keys([])
 
@@ -163,10 +158,6 @@ console.log(vis.stackedData);
       key,
       count,
     }));
-    console.log('DataMap:');
-    console.log(aggregatedDataMap);
-    console.log('AggregatedData');
-    console.log(aggregatedDataMap);
 
     if (vis.orderedKeys.length == 0) {
       vis.aggregatedData = vis.aggregatedData.sort((a, b) => {
@@ -216,8 +207,6 @@ console.log(vis.stackedData);
            .attr('x', d => vis.xScale(d.data.character))
 		       .attr('y', d => vis.yScale(d[1]))
 		       .attr('height', d=> {
-            console.log("HERE:")
-            console.log(vis.yScale(d[0]), vis.yScale(d[1]))
             //any other code you want can go here
             return (vis.yScale(d[0]) - vis.yScale(d[1]))
            }) //.attr('height', d => vis.yScale(d[0]) - vis.yScale(d[1])) //it computed the start and end, height is the difference

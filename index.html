@@ -9,13 +9,14 @@
 </head>
 <body>
     <svg id="barchart"></svg> 
-    <svg id="wordcloud"></svg> 
+    <svg id="wordcloud"></svg>
+    <svg id="phrasecloud"></svg> 
     <svg id="linechart"></svg>
 
     <br>
-    <div id="character-selector">
+    <div id="character-selector-stack">
         <label for="characters">Character:</label>
-        <select name="characters" id="characters">
+        <select name="characters" id="characters-stack">
             <option value="Fry">Fry</option>
             <option value="Bender">Bender</option>
             <option value="Leela">Leela</option>
@@ -35,8 +36,29 @@
         <ul id="charlist"></ul>
     </div>
 
+    <div id="character-selector-cloud">
+        <label for="characters">Character:</label>
+        <select name="characters" id="characters-cloud">
+            <option value="Fry">Fry</option>
+            <option value="Bender">Bender</option>
+            <option value="Leela">Leela</option>
+            <option value="Farnsworth">Farnsworth</option>
+            <option value="Zoidberg">Zoidberg</option>
+            <option value="Amy">Amy</option>
+            <option value="Hermes">Hermes</option>
+            <option value="Zapp">Zapp</option>
+            <option value="Kif">Kif</option>
+            <option value="Mom">Mom</option>
+        </select>
+        <button onclick="updateWordClouds()">Update Word Clouds</button>
+        <br>
+        <p id="cloud-active-character">Active Character: Fry</p>
+    </div>
+
+
     <script src="js/d3.v6.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-cloud/1.2.5/d3.layout.cloud.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/seedrandom@3.0.5/seedrandom.min.js"></script>
     <script src="js/main.js"></script>
     <script src="js/wordCloud.js"></script>
     <script src="js/stopWords.js"></script>
