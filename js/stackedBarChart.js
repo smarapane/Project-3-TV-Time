@@ -1,4 +1,4 @@
-class CharBarChart {
+class StackedBarChart {
   constructor(_config, _data) {
     this.config = {
       parentElement: _config.parentElement,
@@ -12,7 +12,7 @@ class CharBarChart {
     this.xAxisLambda = _config.xAxisLambda;
     this.fillLambda = _config.fillLambda || [];
     this.logScale = _config.logScale;
-    this.orderedKeys = Array.from({length: 10}, (_, i) => String(i + 1));
+    this.orderedKeys = _config.orderedKeys || [];
     this.tiltTicks = _config.tiltTicks;
     this.data = _data
     this.no_data_key = _config.no_data_key || "No Data";
@@ -112,7 +112,7 @@ class CharBarChart {
       .text(vis.title);
   }
 
-  updateVis(curr_character) {
+  updateVis() {
     let vis = this;
 
     // const seasonCounts = Array.from(vis.data, ([character, group]) => {
@@ -125,38 +125,35 @@ class CharBarChart {
       
     // });
 
-    const groupBySeason = d3.group(charBarData, d => d.season);
+    const groupByCharacter = d3.group(barData, d => d.character);
 
-    const episodeCounts = Array.from(groupBySeason, ([season, group]) => {
-      const countByEpisode = d3.rollup(
+    const seasonCounts = Array.from(groupByCharacter, ([character, group]) => {
+      const countBySeason = d3.rollup(
         group,
         (v) => v.length,
-        (d) => d.episode
+        (d) => d.season
+        //d => d.season
       );
-      return { season, countByEpisode };
+      return { character, countBySeason };
     });
 
-const episodeCountsArray = episodeCounts.map(d => {
-  const season = d.season;
-  const episodeArray = Array.from(d.countByEpisode.keys());
-  const countsArray = Array.from(d.countByEpisode.values());
-  return { season, episodeArray, ...countsArray };
+const seasonCountsArray = seasonCounts.map(d => {
+  const character = d.character;
+  const countsArray = Array.from(d.countBySeason.values());
+  return { character, ...countsArray };
 });
 
-const stack = d3.stack().keys(Array.from({length: 26}, (_, i) => String(i + 1)));
+const stack = d3.stack().keys(['1','2','3','4','5','6','7','8','9']);
 
-vis.stackedData = stack(episodeCountsArray);
+vis.stackedData = stack(seasonCountsArray);
 
 //const stackData = d3.stack().keys([])
 
     const aggregatedDataMap = d3.rollups(
-      charBarData,
+      barData,
       (v) => v.length,
       vis.xAxisLambda
     );
-
-    console.log(vis.stackedData)
-
     vis.aggregatedData = Array.from(aggregatedDataMap, ([key, count]) => ({
       key,
       count,
@@ -203,16 +200,15 @@ vis.stackedData = stack(episodeCountsArray);
       vis.bars.remove()
     }
 
-    console.log(vis.stackedData)
     vis.bars = vis.chart
       .selectAll(".bar")
       .data(vis.stackedData)
       .join('g')
-		   .attr('class', d => `category episode-${d.key}`)
+		   .attr('class', d => `category season-${d.key}`)
       .selectAll('rect')
         .data(d => d)
         .join("rect")
-           .attr('x', d => vis.xScale(d.data.season))
+           .attr('x', d => vis.xScale(d.data.character))
 		       .attr('y', d => vis.yScale(d[1]))
 		       .attr('height', d=> {
             //any other code you want can go here
@@ -223,19 +219,9 @@ vis.stackedData = stack(episodeCountsArray);
 
     vis.bars
     .on('mouseover', (event,d) => {
-      var episode;
-      for (const [key, value] of Object.entries(d.data)) {
-        if (value == d[1]-d[0]) {
-          episode = key;
-        }
-      }
-      Object.keys(d.data)
       d3.select('#tooltip')
-        .data(vis.stackedData)
-        .join('g')
         .style('opacity', 1)
-        .html(`<div class="tooltip-label">Season ${d.data.season} Episode ${episode}: ${d[1] - d[0]}</div>`);
-      console.log(d);
+        .html(`<div class="tooltip-label">Test</div>`);
     })
     .on('mousemove', (event) => {
       d3.select('#tooltip')
