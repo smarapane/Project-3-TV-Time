@@ -154,6 +154,9 @@ vis.stackedData = stack(episodeCountsArray);
       (v) => v.length,
       vis.xAxisLambda
     );
+
+    console.log(vis.stackedData)
+
     vis.aggregatedData = Array.from(aggregatedDataMap, ([key, count]) => ({
       key,
       count,
@@ -200,6 +203,7 @@ vis.stackedData = stack(episodeCountsArray);
       vis.bars.remove()
     }
 
+    console.log(vis.stackedData)
     vis.bars = vis.chart
       .selectAll(".bar")
       .data(vis.stackedData)
@@ -219,9 +223,18 @@ vis.stackedData = stack(episodeCountsArray);
 
     vis.bars
     .on('mouseover', (event,d) => {
+      var episode;
+      for (const [key, value] of Object.entries(d.data)) {
+        if (value == d[1]-d[0]) {
+          episode = key;
+        }
+      }
+      Object.keys(d.data)
       d3.select('#tooltip')
+        .data(vis.stackedData)
+        .join('g')
         .style('opacity', 1)
-        .html(`<div class="tooltip-label">Season ${d.data.season} Episode ${d.data.episode}</div>`);
+        .html(`<div class="tooltip-label">Season ${d.data.season} Episode ${episode}: ${d[1] - d[0]}</div>`);
       console.log(d);
     })
     .on('mousemove', (event) => {
