@@ -1,16 +1,17 @@
 active_characters = []
-let wordcloud, phrasecloud, bar, barData;
+let wordcloud, phrasecloud, bar, barData, charbar, charBarData;
 
-d3.csv("data/transcript_data.csv")
+d3.csv("data/transcript_data_normalized.csv")
 .then(_data => {
 
   data = _data;
 
   barData = [];
+  charBarData = data;
   //var characterList = ['Fry', 'Leela', 'Bender', 'Kiff'];
 
   //console.log(data.slice(0,5));
-  
+
   bar = new BarChart(
     {
       parentElement: "#barchart",
@@ -27,7 +28,23 @@ d3.csv("data/transcript_data.csv")
   );
   updateCharacters();
 
-  
+  charbar = new CharBarChart(
+    {
+      parentElement: "#charbarchart",
+      xAxisLabel: "Season",
+      yAxisLabel: "Number of Lines",
+      title: "Lines per Season (for character)",
+      xAxisLambda: (d) => {
+        return d['season'];
+      },
+      logScale: false,
+      containerWidth: 900,
+    },
+    charBarData
+  );
+  charbar.updateVis();
+
+
   var words = prepCloudDataWords("Fry", data);
   wordcloud = new WordCloud(
     { parentElement: '#wordcloud', },
@@ -133,6 +150,8 @@ function updateWordClouds(value) {
 
   d3.select('#cloud-active-character').text('Active Character: ' + character);
 
+  charBarData = data.filter((d) => d.character == value);
+  charbar.updateVis();
 }
 
 function prepCloudDataPhrases(character, data) {
