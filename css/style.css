@@ -11,14 +11,8 @@ html {
   padding: 10px;
 }
 
-.background-img {
-  background-image: url("futurama_bg.jpg");
-  background-repeat: no-repeat;
-  width:20%;
-  height:20%;
-  position: fixed;
-  right: 0px;
-  bottom: 0px;
+.gif {
+  width: 20%;
 }
 
 #tooltip {

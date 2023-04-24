@@ -8,6 +8,46 @@
     <h3><strong>Contributors:</strong> Nicholas Bowling, Sidath Marapane, Kunal Kewalramani, William Leithauser</h3>
 </head>
 <body>
+
+    <div class="row">
+        <svg id="barchart"></svg>
+    </div>
+
+    <br>
+    <h4>Bar Chart Character Selector</h4>
+    <div id="character-selector-stack">
+        <label for="characters">Character:</label>
+        <select name="characters" id="characters-stack">
+            <option value="Fry">Fry</option>
+            <option value="Bender">Bender</option>
+            <option value="Leela">Leela</option>
+            <option value="Farnsworth">Farnsworth</option>
+            <option value="Zoidberg">Zoidberg</option>
+            <option value="Amy">Amy</option>
+            <option value="Hermes">Hermes</option>
+            <option value="Zapp">Zapp</option>
+            <option value="Kif">Kif</option>
+            <option value="Mom">Mom</option>
+        </select>
+        <button onclick="addCharacter()">Add</button>
+        <button onclick="removeCharacter()">Remove</button>
+        <button onclick="clearCharacters()">Clear</button>
+        <br>
+        <p>Active Characters:</p>
+        <ul id="charlist"></ul>
+    </div>
+    
+    <div class="row">
+        <p>Fry: </p>
+
+        <audio controls>
+            <source src="data\Character_Audio\CharacterAudio_Fry.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+        </audio>
+    </div>
+
+    <h2>CHARACTERS</h3>
+
     <div class="row">
         <div class="column">
             <img src="data\Character Images\Character_Fry.jpg" alt="Philip J. Fry" style="width:30%">
@@ -126,44 +166,16 @@
             </div>
         </div>
     </div>
+
     
-    <div class="row">
-        <p>Fry: </p>
-
-        <audio controls>
-            <source src="data\Character_Audio\CharacterAudio_Fry.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-        </audio>
+    <div class="row"></div>
+        <svg id="wordcloud"></svg>
+        <img src="data\fry_squint.jpg" alt="Fry Squinting GIF"></img>
+        <svg id="phrasecloud"></svg>
     </div>
-
-    <svg id="wordcloud"></svg>
-    <svg id="phrasecloud"></svg> 
-    <svg id="barchart"></svg> 
+        
+    
     <svg id="linechart"></svg>
-
-    <br>
-    <h4>Bar Chart Character Selector</h4>
-    <div id="character-selector-stack">
-        <label for="characters">Character:</label>
-        <select name="characters" id="characters-stack">
-            <option value="Fry">Fry</option>
-            <option value="Bender">Bender</option>
-            <option value="Leela">Leela</option>
-            <option value="Farnsworth">Farnsworth</option>
-            <option value="Zoidberg">Zoidberg</option>
-            <option value="Amy">Amy</option>
-            <option value="Hermes">Hermes</option>
-            <option value="Zapp">Zapp</option>
-            <option value="Kif">Kif</option>
-            <option value="Mom">Mom</option>
-        </select>
-        <button onclick="addCharacter()">Add</button>
-        <button onclick="removeCharacter()">Remove</button>
-        <button onclick="clearCharacters()">Clear</button>
-        <br>
-        <p>Active Characters:</p>
-        <ul id="charlist"></ul>
-    </div>
 
     <!--
     <h4>Word Cloud Character Selector</h4>
