@@ -147,6 +147,8 @@ const stack = d3.stack().keys(['1','2','3','4','5','6','7','8','9']);
 
 vis.stackedData = stack(seasonCountsArray);
 
+console.log(vis.stackedData)
+
 //const stackData = d3.stack().keys([])
 
     const aggregatedDataMap = d3.rollups(
@@ -210,18 +212,23 @@ vis.stackedData = stack(seasonCountsArray);
         .join("rect")
            .attr('x', d => vis.xScale(d.data.character))
 		       .attr('y', d => vis.yScale(d[1]))
-		       .attr('height', d=> {
-            //any other code you want can go here
-            return (vis.yScale(d[0]) - vis.yScale(d[1]))
-           }) //.attr('height', d => vis.yScale(d[0]) - vis.yScale(d[1])) //it computed the start and end, height is the difference
-		       .attr('width', vis.xScale.bandwidth());
+		       .attr('height', d=> vis.yScale(d[0]) - vis.yScale(d[1])) //.attr('height', d => vis.yScale(d[0]) - vis.yScale(d[1])) //it computed the start and end, height is the difference
+		       .attr('width', vis.xScale.bandwidth())
+           .attr('season', d => d.data.key);
            
 
     vis.bars
     .on('mouseover', (event,d) => {
+      var season;
+      for (const [key, value] of Object.entries(d.data)) {
+        if (value == d[1]-d[0]) {
+          season = key;
+        }
+      }
       d3.select('#tooltip')
         .style('opacity', 1)
-        .html(`<div class="tooltip-label">Test</div>`);
+        .html(`<div class="tooltip-label">Season ${season}</div>
+                <div><i>Lines Spoken: ${d[1] - d[0]}</i></div>`);
     })
     .on('mousemove', (event) => {
       d3.select('#tooltip')
