@@ -1,64 +1,19 @@
 active_characters = []
-let wordcloud, phrasecloud, bar, barData, charbar, charBarData;
+let wordcloud, phrasecloud, bar, barData;
 
-d3.csv("data/transcript_data_normalized.csv")
+d3.csv("data/transcript_data.csv")
 .then(_data => {
 
   data = _data;
 
   barData = [];
-  charBarData = data;
   //var characterList = ['Fry', 'Leela', 'Bender', 'Kiff'];
 
   //console.log(data.slice(0,5));
-
-  var seasonSelector = d3.select("#season-selector");
-  var episodeSelector = d3.select("#episode-selector");
-
-  seasonSelector.on("change", function () {
-    const selectedSeason = d3.select(this).node().value;
-    if (selectedSeason) {
-      var episodeSelections = ["See Entire Season"];
-      var episodeSet = new Set();
-      var episodes = getEpisodesForSeason(selectedSeason, data);
-
-      e = []
-      episodes.forEach(d => {
-        if (!(episodeSet.has(d['episode']))) {
-          e.push(d['episode']);
-          episodeSet.add(d['episode']);
-        }
-      })
-      e.sort((a, b) => a - b);
-
-      e.forEach(d => {
-        episodeSelections.push("Episode " + d);
-      })
-      
-      episodeSelections.unshift("See Entire Season");
-
-      episodeSelector
-        .property("disabled", false)
-        .property("selectedIndex", 0);  
-
-      episodeSelector
-        .selectAll("option")
-        .remove()
-        .data(episodeSelections)
-        .enter()  
-        .append("option")
-        .text((d) => d);
-      console.log(episodeSelector);
-    }
-
-    else {
-      episodeSelector.property("disabled", true);
-    }
-  });
-
-  bar = new StackedBarChart(
+  
+  bar = new BarChart(
     {
-      parentElement: "#stackedbarchart",
+      parentElement: "#barchart",
       xAxisLabel: "Character",
       yAxisLabel: "Number of Lines",
       title: "Lines per Character",
@@ -72,39 +27,7 @@ d3.csv("data/transcript_data_normalized.csv")
   );
   updateCharacters();
 
-  episodeLinesChart = new BarChart(
-    {
-      parentElement: "#episodelineschart",
-      xAxisLabel: "Character",
-      yAxisLabel: "Number of Lines",
-      title: "Character Lines Per Episode",
-      xAxisLambda: (d) => {
-        return d['character'];
-      },
-      logScale: false,
-      containerWidth: 900,
-    },
-    barData
-  );
-  episodeLinesChart.updateVis();
-
-  charbar = new CharBarChart(
-    {
-      parentElement: "#charbarchart",
-      xAxisLabel: "Season",
-      yAxisLabel: "Number of Lines",
-      title: "Lines per Season (for character)",
-      xAxisLambda: (d) => {
-        return d['season'];
-      },
-      logScale: false,
-      containerWidth: 900,
-    },
-    charBarData
-  );
-  charbar.updateVis();
-
-
+  
   var words = prepCloudDataWords("Fry", data);
   wordcloud = new WordCloud(
     { parentElement: '#wordcloud', },
@@ -198,20 +121,17 @@ function updateCharacters() {
   bar.updateVis();
 }
 
-function updateWordClouds(value) {
-  var character = value;
-  // var character = document.getElementById("characters-cloud").value;
+function updateWordClouds() {
+  var character = document.getElementById("characters-cloud").value;
 
   var words = prepCloudDataWords(character, data);
-  wordcloud.updateVis(words.slice(0, 40), character + " Word Cloud");
+  wordcloud.updateVis(words.slice(0, 40));
 
   var phrases = prepCloudDataPhrases(character, data);
-  phrasecloud.updateVis(phrases.slice(0, 40), character + " Phrase Cloud");
+  phrasecloud.updateVis(phrases.slice(0, 40));
 
   d3.select('#cloud-active-character').text('Active Character: ' + character);
 
-  charBarData = data.filter((d) => d.character == value);
-  charbar.updateVis();
 }
 
 function prepCloudDataPhrases(character, data) {
@@ -244,40 +164,3 @@ function prepCloudDataPhrases(character, data) {
 
   return phraseList.sort((a, b) => b.count - a.count);
 }
-
-function getEpisodesForSeason(season, data) {
-  var episodes = []
-
-  data.forEach(d => {
-
-    if (d['season'] == season) {
-      episodes.push(d);
-    }
-  })
-  return episodes;
-}
-
-function getEpisode(episodes, e) {
-  episodeLines = [];
-
-  episodes.forEach(d => {
-    if (+d['episode'] == e) {
-      episodeLines.push(d);
-    }
-  })
-  return episodeLines;
-}
-
-function updateEpisodeLinesChart() {
-    var season = d3.select("#season-selector").node().value;
-    var episode = d3.select("#episode-selector").node().value;
-    d = getEpisodesForSeason(season, data);
-
-    if (episode != "See Entire Season") {
-      d = getEpisode(d, episode.slice(7));
-    }
-
-    episodeLinesChart.data = getCharacterData([], d);
-    episodeLinesChart.updateVis();
-}
-
