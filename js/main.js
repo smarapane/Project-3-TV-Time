@@ -151,7 +151,7 @@ function updateWordClouds(value) {
   d3.select('#cloud-active-character').text('Active Character: ' + character);
 
   charBarData = data.filter((d) => d.character == value);
-  charbar.updateVis();
+  charbar.updateVis(character);
 }
 
 function prepCloudDataPhrases(character, data) {

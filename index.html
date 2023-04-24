@@ -10,7 +10,7 @@
 <body>
 
     <div class="row">
-        <svg id="barchart"></svg>
+        <svg class="center-barchart" id="barchart"></svg>
     </div>
 
     <br>
@@ -35,15 +35,6 @@
         <br>
         <p>Active Characters:</p>
         <ul id="charlist"></ul>
-    </div>
-    
-    <div class="row">
-        <p>Fry: </p>
-
-        <audio controls>
-            <source src="data\Character_Audio\CharacterAudio_Fry.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-        </audio>
     </div>
 
     <h2>CHARACTERS</h3>
@@ -117,66 +108,76 @@
     <div class="row">
         <div class="column">
             <div id="character-selector-cloud">
-                <button onclick="updateWordClouds('Fry')">Update Word Clouds</button>
+                <button onclick="updateWordClouds('Fry')">Update Visualizations</button>
             </div>
         </div>
         <div class="column">
             <div id="character-selector-cloud">
-                <button onclick="updateWordClouds('Bender')">Update Word Clouds</button>
+                <button onclick="updateWordClouds('Bender')">Update Visualizations</button>
             </div>
         </div>
         <div class="column">
             <div id="character-selector-cloud">
-                <button onclick="updateWordClouds('Leela')">Update Word Clouds</button>
+                <button onclick="updateWordClouds('Leela')">Update Visualizations</button>
             </div>
         </div>
         <div class="column">
             <div id="character-selector-cloud">
-                <button onclick="updateWordClouds('Farnsworth')">Update Word Clouds</button>
+                <button onclick="updateWordClouds('Farnsworth')">Update Visualizations</button>
             </div>
         </div>
         <div class="column">
             <div id="character-selector-cloud">
-                <button onclick="updateWordClouds('Zoidberg')">Update Word Clouds</button>
+                <button onclick="updateWordClouds('Zoidberg')">Update Visualizations</button>
             </div>
         </div>
         <div class="column">
             <div id="character-selector-cloud">
-                <button onclick="updateWordClouds('Amy')">Update Word Clouds</button>
+                <button onclick="updateWordClouds('Amy')">Update Visualizations</button>
             </div>
         </div>
         <div class="column">
             <div id="character-selector-cloud">
-                <button onclick="updateWordClouds('Hermes')">Update Word Clouds</button>
+                <button onclick="updateWordClouds('Hermes')">Update Visualizations</button>
             </div>
         </div>
         <div class="column">
             <div id="character-selector-cloud">
-                <button onclick="updateWordClouds('Zapp')">Update Word Clouds</button>
+                <button onclick="updateWordClouds('Zapp')">Update Visualizations</button>
             </div>
         </div>
         <div class="column">
             <div id="character-selector-cloud">
-                <button onclick="updateWordClouds('Kif')">Update Word Clouds</button>
+                <button onclick="updateWordClouds('Kif')">Update Visualizations</button>
             </div>
         </div>
         <div class="column">
             <div id="character-selector-cloud">
-                <button onclick="updateWordClouds('Mom')">Update Word Clouds</button>
+                <button onclick="updateWordClouds('Mom')">Update Visualizations</button>
             </div>
         </div>
     </div>
 
+    <div class="row">
+        <svg class="center-barchart" id="charbarchart"></svg> 
+    </div>
+
+    <br><br>
     
     <div class="row"></div>
-        <svg id="wordcloud"></svg>
-        <img src="data\fry_squint.jpg" alt="Fry Squinting GIF"></img>
-        <svg id="phrasecloud"></svg>
+        <div class="column-cloud">
+            <svg id="wordcloud"></svg>
+        </div>
+        <div class="column-cloud">
+            <img src="data\fry_squint.jpg" alt="Fry Squinting GIF"></img>
+        </div>
+        <div class="column-cloud">
+            <svg id="phrasecloud"></svg>
+        </div>
     </div>
         
     
     <svg id="linechart"></svg>
-    <svg id="charbarchart"></svg> 
 
     <!--
     <h4>Word Cloud Character Selector</h4>
