@@ -132,15 +132,15 @@ class CharBarChart {
         group,
         (v) => v.length,
         (d) => d.episode
+        //d => d.season
       );
       return { season, countByEpisode };
     });
 
 const episodeCountsArray = episodeCounts.map(d => {
   const season = d.season;
-  const episodeArray = Array.from(d.countByEpisode.keys());
   const countsArray = Array.from(d.countByEpisode.values());
-  return { season, episodeArray, ...countsArray };
+  return { season, ...countsArray };
 });
 
 const stack = d3.stack().keys(Array.from({length: 26}, (_, i) => String(i + 1)));
@@ -221,8 +221,7 @@ vis.stackedData = stack(episodeCountsArray);
     .on('mouseover', (event,d) => {
       d3.select('#tooltip')
         .style('opacity', 1)
-        .html(`<div class="tooltip-label">Season ${d.data.season} Episode ${d.data.episode}</div>`);
-      console.log(d);
+        .html(`<div class="tooltip-label">Test</div>`);
     })
     .on('mousemove', (event) => {
       d3.select('#tooltip')
