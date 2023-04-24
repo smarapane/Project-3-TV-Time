@@ -3,6 +3,14 @@ html {
   background-color: #eaf4fc;
 }
 
+.title-img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 20%;
+  padding: 10px;
+}
+
 .background-img {
   background-image: url("futurama_bg.jpg");
   background-repeat: no-repeat;

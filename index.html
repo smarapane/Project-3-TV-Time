@@ -4,13 +4,10 @@
     <title>Project 3: TV Time</title>
     <link rel="icon" href="data:;base64,iVBORwOKGO=">
     <link rel="stylesheet" href="css/style.css">
-    <h1>Project 3: TV Time</h1>
+    <img class="title-img" src="data\Futurama-Logo.jpg"></img>
     <h3><strong>Contributors:</strong> Nicholas Bowling, Sidath Marapane, Kunal Kewalramani, William Leithauser</h3>
 </head>
 <body>
-    
-    <div class="background-img"></div>
-    
     <div class="row">
         <div class="column">
             <img src="data\Character Images\Character_Fry.jpg" alt="Philip J. Fry" style="width:30%">
@@ -78,6 +75,59 @@
     </div>
 
     <div class="row">
+        <div class="column">
+            <div id="character-selector-cloud">
+                <button onclick="updateWordClouds('Fry')">Update Word Clouds</button>
+            </div>
+        </div>
+        <div class="column">
+            <div id="character-selector-cloud">
+                <button onclick="updateWordClouds('Bender')">Update Word Clouds</button>
+            </div>
+        </div>
+        <div class="column">
+            <div id="character-selector-cloud">
+                <button onclick="updateWordClouds('Leela')">Update Word Clouds</button>
+            </div>
+        </div>
+        <div class="column">
+            <div id="character-selector-cloud">
+                <button onclick="updateWordClouds('Farnsworth')">Update Word Clouds</button>
+            </div>
+        </div>
+        <div class="column">
+            <div id="character-selector-cloud">
+                <button onclick="updateWordClouds('Zoidberg')">Update Word Clouds</button>
+            </div>
+        </div>
+        <div class="column">
+            <div id="character-selector-cloud">
+                <button onclick="updateWordClouds('Amy')">Update Word Clouds</button>
+            </div>
+        </div>
+        <div class="column">
+            <div id="character-selector-cloud">
+                <button onclick="updateWordClouds('Hermes')">Update Word Clouds</button>
+            </div>
+        </div>
+        <div class="column">
+            <div id="character-selector-cloud">
+                <button onclick="updateWordClouds('Zapp')">Update Word Clouds</button>
+            </div>
+        </div>
+        <div class="column">
+            <div id="character-selector-cloud">
+                <button onclick="updateWordClouds('Kif')">Update Word Clouds</button>
+            </div>
+        </div>
+        <div class="column">
+            <div id="character-selector-cloud">
+                <button onclick="updateWordClouds('Mom')">Update Word Clouds</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
         <p>Fry: </p>
 
         <audio controls>
@@ -86,9 +136,9 @@
         </audio>
     </div>
 
-    <svg id="barchart"></svg> 
     <svg id="wordcloud"></svg>
     <svg id="phrasecloud"></svg> 
+    <svg id="barchart"></svg> 
     <svg id="linechart"></svg>
 
     <br>
@@ -115,6 +165,7 @@
         <ul id="charlist"></ul>
     </div>
 
+    <!--
     <h4>Word Cloud Character Selector</h4>
     <div id="character-selector-cloud">
         <label for="characters">Character:</label>
@@ -134,6 +185,7 @@
         <br>
         <p id="cloud-active-character">Active Character: Fry</p>
     </div>
+    -->
 
     <div id="tooltip"></div>
 
