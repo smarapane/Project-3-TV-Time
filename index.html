@@ -8,6 +8,8 @@
     <h3><strong>Contributors:</strong> Nicholas Bowling, Sidath Marapane, Kunal Kewalramani, William Leithauser</h3>
 </head>
 <body>
+    <svg id="stackedbarchart"></svg> 
+    <svg id="episodelineschart"></svg> 
     <div class="row">
         <div class="column">
             <img src="data\Character Images\Character_Fry.jpg" alt="Philip J. Fry" style="width:30%">
@@ -166,29 +168,26 @@
         <ul id="charlist"></ul>
     </div>
 
-    <!--
-    <h4>Word Cloud Character Selector</h4>
-    <div id="character-selector-cloud">
-        <label for="characters">Character:</label>
-        <select name="characters" id="characters-cloud">
-            <option value="Fry">Fry</option>
-            <option value="Bender">Bender</option>
-            <option value="Leela">Leela</option>
-            <option value="Farnsworth">Farnsworth</option>
-            <option value="Zoidberg">Zoidberg</option>
-            <option value="Amy">Amy</option>
-            <option value="Hermes">Hermes</option>
-            <option value="Zapp">Zapp</option>
-            <option value="Kif">Kif</option>
-            <option value="Mom">Mom</option>
-        </select>
-        <button onclick="updateWordClouds()">Update Word Clouds</button>
-        <br>
-        <p id="cloud-active-character">Active Character: Fry</p>
-    </div>
-    -->
+    <div id="season-episode-selector">
+        <select id="season-selector">
+          <option value="" selected disabled hidden>Select Season</option>
+          <option value="1">Season 1</option>
+          <option value="2">Season 2</option>
+          <option value="3">Season 3</option>
+          <option value="4">Season 4</option>
+          <option value="5">Season 5</option>
+          <option value="6">Season 6</option>
+          <option value="7">Season 7</option>
 
+        </select>
+        <select id="episode-selector" disabled>
+          <option value="" selected disabled hidden>Select Episode</option>
+        </select>
+        <button onclick="updateEpisodeLinesChart()">Update Graph</button>
+      </div>
     <div id="tooltip"></div>
+    <div id="barchart-tooltip"></div>
+
 
     <script src="js/d3.v6.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-cloud/1.2.5/d3.layout.cloud.min.js"></script>
@@ -197,6 +196,7 @@
     <script src="js/wordCloud.js"></script>
     <script src="js/stopWords.js"></script>
     <script src="js/barChart.js"></script>
+    <script src="js/stackedBarChart.js"></script>
     <script src="js/charBarChart.js"></script>
 </body>
 </html>
