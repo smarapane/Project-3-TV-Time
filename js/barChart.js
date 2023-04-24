@@ -178,6 +178,10 @@ class BarChart {
       })
       .on("mouseleave", () => {
         d3.select("#barchart-tooltip").style("display", "none");
+      })
+      .on("click", function (event, d) {
+        d3.select(this).classed("active", true);
+        filterData(vis.xAxisLambda, vis.xValue(d));
       });
 
     vis.bars

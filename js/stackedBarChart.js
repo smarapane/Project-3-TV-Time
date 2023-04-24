@@ -219,9 +219,17 @@ vis.stackedData = stack(seasonCountsArray);
 
     vis.bars
     .on('mouseover', (event,d) => {
+      var season;
+      for (const [key, value] of Object.entries(d.data)) {
+        if (value == d[1]-d[0]) {
+          season = key;
+        }
+      }
+
       d3.select('#tooltip')
         .style('opacity', 1)
-        .html(`<div class="tooltip-label">Test</div>`);
+        .html(`<div class="tooltip-label">Season: ${season}</div>
+               <div>Lines Spoken: ${d[1]-d[0]}</div>`);
     })
     .on('mousemove', (event) => {
       d3.select('#tooltip')

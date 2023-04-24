@@ -8,8 +8,59 @@
     <h3><strong>Contributors:</strong> Nicholas Bowling, Sidath Marapane, Kunal Kewalramani, William Leithauser</h3>
 </head>
 <body>
-    <svg id="stackedbarchart"></svg> 
-    <svg id="episodelineschart"></svg> 
+    <div class="row">
+        <svg class="center-barchart" id="stackedbarchart"></svg>
+    </div>
+    <div class="row">
+        <svg class="center-barchart" id="episodelineschart"></svg>
+    </div>
+
+    <br>
+    <h4>Bar Chart Character Selector</h4>
+    <div id="character-selector-stack">
+        <label for="characters">Character:</label>
+        <select name="characters" id="characters-stack">
+            <option value="Fry">Fry</option>
+            <option value="Bender">Bender</option>
+            <option value="Leela">Leela</option>
+            <option value="Farnsworth">Farnsworth</option>
+            <option value="Zoidberg">Zoidberg</option>
+            <option value="Amy">Amy</option>
+            <option value="Hermes">Hermes</option>
+            <option value="Zapp">Zapp</option>
+            <option value="Kif">Kif</option>
+            <option value="Mom">Mom</option>
+        </select>
+        <button onclick="addCharacter()">Add</button>
+        <button onclick="removeCharacter()">Remove</button>
+        <button onclick="clearCharacters()">Clear</button>
+        <br>
+        <p>Active Characters:</p>
+        <ul id="charlist"></ul>
+    </div>
+    
+    <div id="season-episode-selector">
+        <select id="season-selector">
+          <option value="" selected disabled hidden>Select Season</option>
+          <option value="1">Season 1</option>
+          <option value="2">Season 2</option>
+          <option value="3">Season 3</option>
+          <option value="4">Season 4</option>
+          <option value="5">Season 5</option>
+          <option value="6">Season 6</option>
+          <option value="7">Season 7</option>
+
+        </select>
+        <select id="episode-selector" disabled>
+          <option value="" selected disabled hidden>Select Episode</option>
+        </select>
+        <button onclick="updateEpisodeLinesChart()">Update Graph</button>
+      </div>
+    <div id="tooltip"></div>
+    <div id="barchart-tooltip"></div>
+
+    <h2>CHARACTERS</h3>
+
     <div class="row">
         <div class="column">
             <img src="data\Character Images\Character_Fry.jpg" alt="Philip J. Fry" style="width:30%">
@@ -79,115 +130,73 @@
     <div class="row">
         <div class="column">
             <div id="character-selector-cloud">
-                <button onclick="updateWordClouds('Fry')">Update Word Clouds</button>
+                <button onclick="updateWordClouds('Fry')">Update Visualizations</button>
             </div>
         </div>
         <div class="column">
             <div id="character-selector-cloud">
-                <button onclick="updateWordClouds('Bender')">Update Word Clouds</button>
+                <button onclick="updateWordClouds('Bender')">Update Visualizations</button>
             </div>
         </div>
         <div class="column">
             <div id="character-selector-cloud">
-                <button onclick="updateWordClouds('Leela')">Update Word Clouds</button>
+                <button onclick="updateWordClouds('Leela')">Update Visualizations</button>
             </div>
         </div>
         <div class="column">
             <div id="character-selector-cloud">
-                <button onclick="updateWordClouds('Farnsworth')">Update Word Clouds</button>
+                <button onclick="updateWordClouds('Farnsworth')">Update Visualizations</button>
             </div>
         </div>
         <div class="column">
             <div id="character-selector-cloud">
-                <button onclick="updateWordClouds('Zoidberg')">Update Word Clouds</button>
+                <button onclick="updateWordClouds('Zoidberg')">Update Visualizations</button>
             </div>
         </div>
         <div class="column">
             <div id="character-selector-cloud">
-                <button onclick="updateWordClouds('Amy')">Update Word Clouds</button>
+                <button onclick="updateWordClouds('Amy')">Update Visualizations</button>
             </div>
         </div>
         <div class="column">
             <div id="character-selector-cloud">
-                <button onclick="updateWordClouds('Hermes')">Update Word Clouds</button>
+                <button onclick="updateWordClouds('Hermes')">Update Visualizations</button>
             </div>
         </div>
         <div class="column">
             <div id="character-selector-cloud">
-                <button onclick="updateWordClouds('Zapp')">Update Word Clouds</button>
+                <button onclick="updateWordClouds('Zapp')">Update Visualizations</button>
             </div>
         </div>
         <div class="column">
             <div id="character-selector-cloud">
-                <button onclick="updateWordClouds('Kif')">Update Word Clouds</button>
+                <button onclick="updateWordClouds('Kif')">Update Visualizations</button>
             </div>
         </div>
         <div class="column">
             <div id="character-selector-cloud">
-                <button onclick="updateWordClouds('Mom')">Update Word Clouds</button>
+                <button onclick="updateWordClouds('Mom')">Update Visualizations</button>
             </div>
         </div>
     </div>
-    
+
     <div class="row">
-        <p>Fry: </p>
-
-        <audio controls>
-            <source src="data\Character_Audio\CharacterAudio_Fry.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-        </audio>
+        <svg class="center-barchart" id="charbarchart"></svg> 
     </div>
 
-    <svg id="wordcloud"></svg>
-    <svg id="phrasecloud"></svg> 
-    <svg id="barchart"></svg> 
-    <svg id="linechart"></svg>
-    <svg id="charbarchart"></svg> 
-
-    <br>
-    <h4>Bar Chart Character Selector</h4>
-    <div id="character-selector-stack">
-        <label for="characters">Character:</label>
-        <select name="characters" id="characters-stack">
-            <option value="Fry">Fry</option>
-            <option value="Bender">Bender</option>
-            <option value="Leela">Leela</option>
-            <option value="Farnsworth">Farnsworth</option>
-            <option value="Zoidberg">Zoidberg</option>
-            <option value="Amy">Amy</option>
-            <option value="Hermes">Hermes</option>
-            <option value="Zapp">Zapp</option>
-            <option value="Kif">Kif</option>
-            <option value="Mom">Mom</option>
-        </select>
-        <button onclick="addCharacter()">Add</button>
-        <button onclick="removeCharacter()">Remove</button>
-        <button onclick="clearCharacters()">Clear</button>
-        <br>
-        <p>Active Characters:</p>
-        <ul id="charlist"></ul>
+    <br><br>
+    
+    <div class="row"></div>
+        <div class="column-cloud">
+            <svg id="wordcloud"></svg>
+        </div>
+        <div class="column-cloud">
+            <img src="data\fry_squint.jpg" alt="Fry Squinting GIF"></img>
+        </div>
+        <div class="column-cloud">
+            <svg id="phrasecloud"></svg>
+        </div>
     </div>
-
-    <div id="season-episode-selector">
-        <select id="season-selector">
-          <option value="" selected disabled hidden>Select Season</option>
-          <option value="1">Season 1</option>
-          <option value="2">Season 2</option>
-          <option value="3">Season 3</option>
-          <option value="4">Season 4</option>
-          <option value="5">Season 5</option>
-          <option value="6">Season 6</option>
-          <option value="7">Season 7</option>
-
-        </select>
-        <select id="episode-selector" disabled>
-          <option value="" selected disabled hidden>Select Episode</option>
-        </select>
-        <button onclick="updateEpisodeLinesChart()">Update Graph</button>
-      </div>
-    <div id="tooltip"></div>
-    <div id="barchart-tooltip"></div>
-
 
     <script src="js/d3.v6.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-cloud/1.2.5/d3.layout.cloud.min.js"></script>

@@ -112,7 +112,7 @@ class CharBarChart {
       .text(vis.title);
   }
 
-  updateVis() {
+  updateVis(curr_character) {
     let vis = this;
 
     // const seasonCounts = Array.from(vis.data, ([character, group]) => {

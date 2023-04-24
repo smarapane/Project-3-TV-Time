@@ -19,14 +19,8 @@ html {
   padding: 10px;
 }
 
-.background-img {
-  background-image: url("futurama_bg.jpg");
-  background-repeat: no-repeat;
-  width:20%;
-  height:20%;
-  position: fixed;
-  right: 0px;
-  bottom: 0px;
+.gif {
+  width: 20%;
 }
 
 #tooltip {
@@ -80,11 +74,31 @@ html {
 .episode-19 rect { fill: #000075; }
 .episode-20 rect { fill: #808080; }
 
+.center-barchart {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* Three image containers (use 25% for four, and 50% for two, etc) */
 .column {
   float: left;
   width: 9%;
   padding: 5px;
+  text-align: center;
+}
+
+.column-charts {
+  float: left;
+  width: 40%;
+  padding: 2px;
+  text-align: center;
+}
+
+.column-cloud {
+  float: left;
+  width: 33%;
+  padding: 2px;
   text-align: center;
 }
 
