@@ -138,15 +138,14 @@ function updateCharacters() {
   bar.updateVis();
 }
 
-function updateWordClouds(value) {
-  var character = value;
-  // var character = document.getElementById("characters-cloud").value;
+function updateWordClouds() {
+  var character = document.getElementById("characters-cloud").value;
 
   var words = prepCloudDataWords(character, data);
-  wordcloud.updateVis(words.slice(0, 40), character + " Word Cloud");
+  wordcloud.updateVis(words.slice(0, 40));
 
   var phrases = prepCloudDataPhrases(character, data);
-  phrasecloud.updateVis(phrases.slice(0, 40), character + " Phrase Cloud");
+  phrasecloud.updateVis(phrases.slice(0, 40));
 
   d3.select('#cloud-active-character').text('Active Character: ' + character);
 

@@ -50,14 +50,14 @@ initVis() {
         .fontSize((d) => vis.countScale(d.count))
         .font(vis.config.font)
         .on("end", (words) => {
-            vis.renderVis(words, vis.title);
+            vis.renderVis(words);
     });
 
     // Generate the word cloud
     vis.layout.start();
 }
 
-renderVis(words, curr_character) {
+renderVis(words) {
     let vis = this;
     
     // Create the word cloud elements
@@ -80,10 +80,10 @@ renderVis(words, curr_character) {
         .attr("font-size", "35px")
         .attr("font-weight", "bold")
         .attr("text-anchor", "middle")
-        .text(curr_character);
+        .text(vis.title);
 }
 
-updateVis(data, curr_character) {
+updateVis(data) {
     let vis = this;
 
     vis.countScale = d3.scaleLinear()
@@ -96,7 +96,7 @@ updateVis(data, curr_character) {
         .fontSize((d) => vis.countScale(d.count))
     .on("end", (words) => {
         console.log(words);
-        vis.renderVis(words, curr_character);
+        vis.renderVis(words);
     })
     .start();
 }

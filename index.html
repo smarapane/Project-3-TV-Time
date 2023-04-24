@@ -4,141 +4,13 @@
     <title>Project 3: TV Time</title>
     <link rel="icon" href="data:;base64,iVBORwOKGO=">
     <link rel="stylesheet" href="css/style.css">
-    <img class="title-img" src="data\Futurama-Logo.jpg"></img>
+    <h1>Project 3: TV Time</h1>
     <h3><strong>Contributors:</strong> Nicholas Bowling, Sidath Marapane, Kunal Kewalramani, William Leithauser</h3>
 </head>
 <body>
-    <div class="row">
-        <div class="column">
-            <img src="data\Character Images\Character_Fry.jpg" alt="Philip J. Fry" style="width:30%">
-        </div>
-        <div class="column">
-            <img src="data\Character Images\Character_Bender.jpg" alt="Bender Bending Rodríguez" style="width:30%">
-        </div>
-        <div class="column">
-            <img src="data\Character Images\Character_Leela.jpg" alt="Turanga Leela" style="width:30%">
-        </div>
-        <div class="column">
-            <img src="data\Character Images\Character_Farnsworth.jpg" alt="Hubert J. Farnsworth" style="width:30%">
-        </div>
-        <div class="column">
-            <img src="data\Character Images\Character_Zoidberg.jpg" alt="John A. Zoidberg" style="width:40%">
-        </div>
-        <div class="column">
-            <img src="data\Character Images\Character_Amy.jpg" alt="Amy Wong-Kroker" style="width:30%">
-        </div>
-        <div class="column">
-            <img src="data\Character Images\Character_Hermes.jpg" alt="Hermes Conrad" style="width:35%">
-        </div>
-        <div class="column">
-            <img src="data\Character Images\Character_Zapp.jpg" alt="Zapp Brannigan" style="width:50%">
-        </div>
-        <div class="column">
-            <img src="data\Character Images\Character_Kif.jpg" alt="Kif Kroker" style="width:30%">
-        </div>
-        <div class="column">
-            <img src="data\Character Images\Character_Mom.jpg" alt="Carol Miller" style="width:50%">
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="column">
-            <a href="https://futurama.fandom.com/wiki/Philip_J._Fry" target="_blank">Philip J. Fry</a>
-        </div>
-        <div class="column">
-            <a href="https://futurama.fandom.com/wiki/Bender_Bending_Rodr%C3%ADguez" target="_blank">Bender Bending Rodríguez</a>
-        </div>
-        <div class="column">
-            <a href="https://futurama.fandom.com/wiki/Turanga_Leela" target="_blank">Turanga Leela</a>
-        </div>
-        <div class="column">
-            <a href="https://futurama.fandom.com/wiki/Hubert_J._Farnsworth" target="_blank">Hubert J. Farnsworth</a>
-        </div>
-        <div class="column">
-            <a href="https://futurama.fandom.com/wiki/John_A._Zoidberg" target="_blank">John A. Zoidberg</a>
-        </div>
-        <div class="column">
-            <a href="https://futurama.fandom.com/wiki/Amy_Wong-Kroker" target="_blank">Amy Wong-Kroker</a>
-        </div>
-        <div class="column">
-            <a href="https://futurama.fandom.com/wiki/Hermes_Conrad" target="_blank">Hermes Conrad</a>
-        </div>
-        <div class="column">
-            <a href="https://futurama.fandom.com/wiki/Zapp_Brannigan" target="_blank">Zapp Brannigan</a>
-        </div>
-        <div class="column">
-            <a href="https://futurama.fandom.com/wiki/Kif_Kroker" target="_blank">Kif Kroker</a>
-        </div>
-        <div class="column">
-            <a href="https://futurama.fandom.com/wiki/Carol_Miller" target="_blank">Carol Miller (Mom)</a>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="column">
-            <div id="character-selector-cloud">
-                <button onclick="updateWordClouds('Fry')">Update Word Clouds</button>
-            </div>
-        </div>
-        <div class="column">
-            <div id="character-selector-cloud">
-                <button onclick="updateWordClouds('Bender')">Update Word Clouds</button>
-            </div>
-        </div>
-        <div class="column">
-            <div id="character-selector-cloud">
-                <button onclick="updateWordClouds('Leela')">Update Word Clouds</button>
-            </div>
-        </div>
-        <div class="column">
-            <div id="character-selector-cloud">
-                <button onclick="updateWordClouds('Farnsworth')">Update Word Clouds</button>
-            </div>
-        </div>
-        <div class="column">
-            <div id="character-selector-cloud">
-                <button onclick="updateWordClouds('Zoidberg')">Update Word Clouds</button>
-            </div>
-        </div>
-        <div class="column">
-            <div id="character-selector-cloud">
-                <button onclick="updateWordClouds('Amy')">Update Word Clouds</button>
-            </div>
-        </div>
-        <div class="column">
-            <div id="character-selector-cloud">
-                <button onclick="updateWordClouds('Hermes')">Update Word Clouds</button>
-            </div>
-        </div>
-        <div class="column">
-            <div id="character-selector-cloud">
-                <button onclick="updateWordClouds('Zapp')">Update Word Clouds</button>
-            </div>
-        </div>
-        <div class="column">
-            <div id="character-selector-cloud">
-                <button onclick="updateWordClouds('Kif')">Update Word Clouds</button>
-            </div>
-        </div>
-        <div class="column">
-            <div id="character-selector-cloud">
-                <button onclick="updateWordClouds('Mom')">Update Word Clouds</button>
-            </div>
-        </div>
-    </div>
-    
-    <div class="row">
-        <p>Fry: </p>
-
-        <audio controls>
-            <source src="data\Character_Audio\CharacterAudio_Fry.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-        </audio>
-    </div>
-
+    <svg id="barchart"></svg> 
     <svg id="wordcloud"></svg>
     <svg id="phrasecloud"></svg> 
-    <svg id="barchart"></svg> 
     <svg id="linechart"></svg>
     <svg id="charbarchart"></svg> 
 
@@ -166,7 +38,6 @@
         <ul id="charlist"></ul>
     </div>
 
-    <!--
     <h4>Word Cloud Character Selector</h4>
     <div id="character-selector-cloud">
         <label for="characters">Character:</label>
@@ -186,7 +57,6 @@
         <br>
         <p id="cloud-active-character">Active Character: Fry</p>
     </div>
-    -->
 
     <div id="tooltip"></div>
 
