@@ -119,42 +119,6 @@ class BarChart {
   updateVis() {
     let vis = this;
 
-
-    // const seasonCounts = Array.from(vis.data, ([character, group]) => {
-    //   countBySeason = d3.rollup(
-    //     group,
-    //     v => v.length,
-    //     d => d.Season
-    //   );
-    //     return { character, countBySeason};
-      
-    // });
-
-    const groupByCharacter = d3.group(barData, d => d.character);
-
-    const seasonCounts = Array.from(groupByCharacter, ([character, group]) => {
-      const countBySeason = d3.rollup(
-        group,
-        (v) => v.length,
-        (d) => d.season
-        //d => d.season
-      );
-      return { character, countBySeason };
-    });
-
-const seasonCountsArray = seasonCounts.map(d => {
-  const character = d.character;
-  const countsArray = Array.from(d.countBySeason.values());
-  return { character, ...countsArray };
-});
-
-const stack = d3.stack().keys(['1','2','3','4','5','6','7','8','9']);
-
-vis.stackedData = stack(seasonCountsArray);
-
-console.log(vis.stackedData)
-
-//const stackData = d3.stack().keys([])
     const aggregatedDataMap = d3.rollups(
       vis.data,
       (v) => v.length,
@@ -199,55 +163,26 @@ console.log(vis.stackedData)
 
     vis.bars = vis.chart
       .selectAll(".bar")
-
-      .data(vis.stackedData)
-      .join('g')
-		   .attr('class', d => `category season-${d.key}`)
-      .selectAll('rect')
-        .data(d => d)
-        .join("rect")
-           .attr('x', d => vis.xScale(d.data.character))
-		       .attr('y', d => vis.yScale(d[1]))
-		       .attr('height', d=> vis.yScale(d[0]) - vis.yScale(d[1])) //.attr('height', d => vis.yScale(d[0]) - vis.yScale(d[1])) //it computed the start and end, height is the difference
-		       .attr('width', vis.xScale.bandwidth())
-           .attr('season', d => d.data.key);
-           
+      .data(vis.aggregatedData, vis.xValue)
+      .join("rect");
 
     vis.bars
-    .on('mouseover', (event,d) => {
-      var season;
-      for (const [key, value] of Object.entries(d.data)) {
-        if (value == d[1]-d[0]) {
-          season = key;
-        }
-      }
-      d3.select('#tooltip')
-        .style('opacity', 1)
-        .html(`<div class="tooltip-label">Season ${season}</div>
-                <div><i>Lines Spoken: ${d[1] - d[0]}</i></div>`);
-    })
-    .on('mousemove', (event) => {
-      d3.select('#tooltip')
-        .style('left', (event.pageX + vis.config.tooltipPadding) + 'px')   
-        .style('top', (event.pageY + vis.config.tooltipPadding) + 'px')
-    })
-    .on('mouseleave', () => {
-      d3.select('#tooltip').style('opacity', 0);
-    });
-      // .on("mousemove", (event, d) => {
-      //   d3.select("#barchart-tooltip")
-      //     .style("left", event.pageX + 15 + "px")
-      //     .style("top", event.pageY + 15 + "px")
-      //     .html(`Value: ${vis.height}`);
-      // })
-      // .on("mouseleave", () => {
-      //   d3.select("#barchart-tooltip").style("display", "none");
-      // })
-      // .on("click", function (event, d) {
-      //   d3.select(this).classed("active", true);
-      //   filterData(vis.xAxisLambda, vis.xValue(d));
-      // });
-
+      .on("mouseover", (event, d) => {
+        d3.select("#barchart-tooltip").style("display", "block");
+      })
+      .on("mousemove", (event, d) => {
+        d3.select("#barchart-tooltip")
+          .style("left", event.pageX + 15 + "px")
+          .style("top", event.pageY + 15 + "px")
+          .html(`Value: ${vis.yValue(d)}`);
+      })
+      .on("mouseleave", () => {
+        d3.select("#barchart-tooltip").style("display", "none");
+      })
+      .on("click", function (event, d) {
+        d3.select(this).classed("active", true);
+        filterData(vis.xAxisLambda, vis.xValue(d));
+      });
 
     vis.bars
       .transition()
