@@ -3,6 +3,14 @@ html {
   background-color: #eaf4fc;
 }
 
+#barchart-tooltip {
+  position: absolute;
+  display: none;
+  background: #fff;
+  border: 1px solid #000;
+  padding: 4px;
+}
+
 #tooltip {
   position: absolute;
   opacity: 0;
