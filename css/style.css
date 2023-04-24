@@ -63,8 +63,26 @@ html {
   fill: #ff00ae;
 }
 
-
-
+.episode-1 rect { fill: #e6194b; }
+.episode-2 rect { fill: #3cb44b; }
+.episode-3 rect { fill: #ffe119; }
+.episode-4 rect { fill: #4363d8; }
+.episode-5 rect { fill: #f58231; }
+.episode-6 rect { fill: #911eb4; }
+.episode-7 rect { fill: #46f0f0; }
+.episode-8 rect { fill: #f032e6; }
+.episode-9 rect { fill: #bcf60c; }
+.episode-10 rect { fill: #fabebe; }
+.episode-11 rect { fill: #008080; }
+.episode-12 rect { fill: #e6beff; }
+.episode-13 rect { fill: #9a6324; }
+.episode-14 rect { fill: #fffac8; }
+.episode-15 rect { fill: #800000; }
+.episode-16 rect { fill: #aaffc3; }
+.episode-17 rect { fill: #808000; }
+.episode-18 rect { fill: #ffd8b1; }
+.episode-19 rect { fill: #000075; }
+.episode-20 rect { fill: #808080; }
 
 h1 {text-align: center}
 h2 {text-align: center}
