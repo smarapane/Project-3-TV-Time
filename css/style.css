@@ -11,6 +11,24 @@ html {
   padding: 4px;
 }
 
+.title-img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 20%;
+  padding: 10px;
+}
+
+.background-img {
+  background-image: url("futurama_bg.jpg");
+  background-repeat: no-repeat;
+  width:20%;
+  height:20%;
+  position: fixed;
+  right: 0px;
+  bottom: 0px;
+}
+
 #tooltip {
   position: absolute;
   opacity: 0;
@@ -31,45 +49,15 @@ html {
   shape-rendering: crispEdges;
 }
 
-.season-1 rect{
-  fill: #d70e17;
-}
-
-.season-2 rect{
-  fill: #1887ab;
-}
-
-.season-3 rect{
-  fill: #f0be39;
-}
-
-.season-4 rect{
-  /* fill: #15df30; */
-  fill: #ac259a;
-}
-
-.season-5 rect{
-  
-  fill: #15df30;
-}
-
-.season-6 rect{
-  /* fill: #ac259a; */
-  fill: #e46828;
-  
-}
-
-.season-7 rect{
-  fill: #0f5a0f;
-}
-
-.season-8 rect{
-  fill: #00e5fe;
-}
-
-.season-9 rect{
-  fill: #ff00ae;
-}
+.season-1 rect{ fill: #d70e17; }
+.season-2 rect{ fill: #1887ab; }
+.season-3 rect{ fill: #f0be39; }
+.season-4 rect{ fill: #ac259a; }
+.season-5 rect{ fill: #15df30; }
+.season-6 rect{ fill: #e46828; }
+.season-7 rect{ fill: #0f5a0f; }
+.season-8 rect{ fill: #00e5fe; }
+.season-9 rect{ fill: #ff00ae; }
 
 .episode-1 rect { fill: #e6194b; }
 .episode-2 rect { fill: #3cb44b; }
@@ -91,6 +79,21 @@ html {
 .episode-18 rect { fill: #ffd8b1; }
 .episode-19 rect { fill: #000075; }
 .episode-20 rect { fill: #808080; }
+
+/* Three image containers (use 25% for four, and 50% for two, etc) */
+.column {
+  float: left;
+  width: 9%;
+  padding: 5px;
+  text-align: center;
+}
+
+/* Clear floats after image containers */
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
 
 h1 {text-align: center}
 h2 {text-align: center}
