@@ -88,6 +88,13 @@ html {
   text-align: center;
 }
 
+.column-charts {
+  float: left;
+  width: 40%;
+  padding: 2px;
+  text-align: center;
+}
+
 .column-cloud {
   float: left;
   width: 33%;

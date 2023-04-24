@@ -8,11 +8,11 @@
     <h3><strong>Contributors:</strong> Nicholas Bowling, Sidath Marapane, Kunal Kewalramani, William Leithauser</h3>
 </head>
 <body>
-    <svg id="stackedbarchart"></svg> 
-    <svg id="episodelineschart"></svg> 
-
     <div class="row">
-        <svg class="center-barchart" id="barchart"></svg>
+        <svg class="center-barchart" id="stackedbarchart"></svg>
+    </div>
+    <div class="row">
+        <svg class="center-barchart" id="episodelineschart"></svg>
     </div>
 
     <br>
@@ -38,6 +38,46 @@
         <p>Active Characters:</p>
         <ul id="charlist"></ul>
     </div>
+    
+    <div id="season-episode-selector">
+        <select id="season-selector">
+          <option value="" selected disabled hidden>Select Season</option>
+          <option value="1">Season 1</option>
+          <option value="2">Season 2</option>
+          <option value="3">Season 3</option>
+          <option value="4">Season 4</option>
+          <option value="5">Season 5</option>
+          <option value="6">Season 6</option>
+          <option value="7">Season 7</option>
+
+        </select>
+        <button onclick="addCharacter()">Add</button>
+        <button onclick="removeCharacter()">Remove</button>
+        <button onclick="clearCharacters()">Clear</button>
+        <br>
+        <p>Active Characters:</p>
+        <ul id="charlist"></ul>
+    </div>
+
+    <div id="season-episode-selector">
+        <select id="season-selector">
+          <option value="" selected disabled hidden>Select Season</option>
+          <option value="1">Season 1</option>
+          <option value="2">Season 2</option>
+          <option value="3">Season 3</option>
+          <option value="4">Season 4</option>
+          <option value="5">Season 5</option>
+          <option value="6">Season 6</option>
+          <option value="7">Season 7</option>
+
+        </select>
+        <select id="episode-selector" disabled>
+          <option value="" selected disabled hidden>Select Episode</option>
+        </select>
+        <button onclick="updateEpisodeLinesChart()">Update Graph</button>
+      </div>
+    <div id="tooltip"></div>
+    <div id="barchart-tooltip"></div>
 
     <h2>CHARACTERS</h3>
 
@@ -177,53 +217,6 @@
             <svg id="phrasecloud"></svg>
         </div>
     </div>
-        
-    
-    <svg id="linechart"></svg>
-
-    <div id="season-episode-selector">
-        <select id="season-selector">
-          <option value="" selected disabled hidden>Select Season</option>
-          <option value="1">Season 1</option>
-          <option value="2">Season 2</option>
-          <option value="3">Season 3</option>
-          <option value="4">Season 4</option>
-          <option value="5">Season 5</option>
-          <option value="6">Season 6</option>
-          <option value="7">Season 7</option>
-
-        </select>
-        <button onclick="addCharacter()">Add</button>
-        <button onclick="removeCharacter()">Remove</button>
-        <button onclick="clearCharacters()">Clear</button>
-        <br>
-        <p>Active Characters:</p>
-        <ul id="charlist"></ul>
-    </div>
-        
-    
-    <svg id="linechart"></svg>
-
-    <div id="season-episode-selector">
-        <select id="season-selector">
-          <option value="" selected disabled hidden>Select Season</option>
-          <option value="1">Season 1</option>
-          <option value="2">Season 2</option>
-          <option value="3">Season 3</option>
-          <option value="4">Season 4</option>
-          <option value="5">Season 5</option>
-          <option value="6">Season 6</option>
-          <option value="7">Season 7</option>
-
-        </select>
-        <select id="episode-selector" disabled>
-          <option value="" selected disabled hidden>Select Episode</option>
-        </select>
-        <button onclick="updateEpisodeLinesChart()">Update Graph</button>
-      </div>
-    <div id="tooltip"></div>
-    <div id="barchart-tooltip"></div>
-
 
     <script src="js/d3.v6.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-cloud/1.2.5/d3.layout.cloud.min.js"></script>
